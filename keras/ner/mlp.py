@@ -33,7 +33,7 @@ class Defaults(object):
     iobes = False     # Map tags to IOBES on input
     token_level_eval = False    # Token-level eval even if IOB-like tagging
     optimizer = 'adam' # 'sgd'
-    test = False
+    test = True
 
 config = settings.from_cli(['datadir', 'wordvecs'], Defaults)
 optimizer = optimizers.get(config.optimizer)
@@ -106,5 +106,5 @@ common.save_gold_and_prediction(data.devel, pred, config, output_name)
 if config.test:
     eval_report('TEST', model, data.test, config)
     pred = predictions(model, data.test.inputs)
-    common.save_gold_and_prediction(data.test, pred, config, 
+    common.save_gold_and_prediction(data.test, pred, config,
                                     'TEST--' + output_name)
