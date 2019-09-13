@@ -50,7 +50,7 @@ cat > $dir/config.json <<EOF
     "word_count" : $word_count,
     "vector_dim" : $vector_dim,
     "format" : "tsv"
-}    
+}
 EOF
 
 # make vocab, filling in zeros for frequency
@@ -60,6 +60,6 @@ perl -pe 's/\s*$/\t0\n/' $words > $dir/vocab.tsv
 perl -pe 's/ /\t/g' $embeddings > $dir/vectors.tsv
 
 # convert
-python wvlib.py $dir -v npy -o $out
+/home/kabbach/venv2/bin/python wvlib.py $dir -v npy -o $out
 
 rm -rf $dir

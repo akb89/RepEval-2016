@@ -8,4 +8,4 @@ DIR=${2:-word-similarities/}
 
 echo "Evaluating $VEC on word rankings in $DIR" >&2
 
-python evalrank.py $VEC `find "$DIR" -name '*.txt'`
+/home/kabbach/venv2/bin/python evalrank.py $VEC `find "$DIR" -name '*.txt'`

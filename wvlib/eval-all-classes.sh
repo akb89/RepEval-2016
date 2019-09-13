@@ -10,6 +10,6 @@ echo "Evaluating $VEC on classes in $DIR" >&2
 
 for d in $DIR/*; do
     if [ -d $d ]; then
-	echo `basename $d`: `python evalclass.py -q $VEC $d/*.txt`
+	echo `basename $d`: `/home/kabbach/venv2/bin/python evalclass.py -q $VEC $d/*.txt`
     fi
 done

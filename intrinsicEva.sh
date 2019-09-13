@@ -5,5 +5,5 @@ FILES=$(find $1 -type f -name '*.bin')
 for file in $FILES
 do
 	echo $file
-	python evaluate.py -i $file #> $file.evaluate.txt
+	/home/kabbach/venv2/bin/python evaluate.py -i $file #> $file.evaluate.txt
 done
