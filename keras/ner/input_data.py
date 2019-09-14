@@ -170,6 +170,19 @@ def word_features(word, config=None):
   else:
     return [0,0,0,1]    # no caps
 
+def load_w2v_numpy(model_filepath, vocab_filepath):
+    """Read a numpy model."""
+    word_to_vector = OrderedDict()
+    model = numpy.load(model_filepath)
+    with codecs.open(vocab_filepath, encoding='utf-8') as vocab_stream:
+        for line in vocab_stream:
+            linesplit = line.strip().split('\t')
+            word = linesplit[1]
+            vector = model[int(linesplit[0])]
+            features = numpy.array(word_features(word), dtype=numpy.float32)
+            word_to_vector[word] = numpy.concatenate((vector, features))
+    return word_to_vector
+
 def load_w2v_binary(filename, config=None):
   """Read word2vec binary format, return OrderedDict word-vector map."""
 
@@ -467,7 +480,11 @@ def _get_word_to_vector(w2v_file, config=None):
     pass
   if w2v_file is None:
     w2v_file = DEFAULT_W2V_FILE
-  word_to_vector = load_w2v_binary(w2v_file, config)
+  if config.format == 'binary':
+    word_to_vector = load_w2v_binary(w2v_file, config)
+  else:
+    vocab_filepath = '{}.vocab'.format(w2v_file.split('.npy')[0])
+    word_to_vector = load_w2v_numpy(w2v_file, vocab_filepath)
   wvsize = next(word_to_vector.itervalues()).shape[0]
   # If the separator, sentinel or unknown word is not defined, add
   separator = sentence_separator(config, word_to_vector)

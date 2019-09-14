@@ -34,6 +34,7 @@ class Defaults(object):
     token_level_eval = False    # Token-level eval even if IOB-like tagging
     optimizer = 'adam' # 'sgd'
     test = True
+    format = 'numpy'
 
 config = settings.from_cli(['datadir', 'wordvecs'], Defaults)
 optimizer = optimizers.get(config.optimizer)

@@ -8,13 +8,13 @@ echo $home
 
 #DIR=$home'/ner/evaluation' #"$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #echo $DIR
-FILES=$(find $1 -type f -name '*.bin')
+FILES=$(find $1 -type f -name '*.bin' -o -name '*.npy')
 for file in $FILES
 do
 	for f in $dataPath/CoNLL03 $dataPath/CoNLL00 $dataPath/PTB-pos
 	do
 	echo $f
-	/home/kabbach/venv2/bin/python $home/ner/mlp.py $f $file  
+	/home/kabbach/venv2/bin/python $home/ner/mlp.py $f $file
 	done
 done
 
