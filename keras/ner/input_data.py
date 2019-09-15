@@ -177,10 +177,11 @@ def load_w2v_numpy(model_filepath, vocab_filepath):
     with codecs.open(vocab_filepath, encoding='utf-8') as vocab_stream:
         for line in vocab_stream:
             linesplit = line.strip().split('\t')
-            word = linesplit[1]
-            vector = model[int(linesplit[0])]
-            features = numpy.array(word_features(word), dtype=numpy.float32)
-            word_to_vector[word] = numpy.concatenate((vector, features))
+            if len(linesplit) == 2:
+                word = linesplit[1]
+                vector = model[int(linesplit[0])]
+                features = numpy.array(word_features(word), dtype=numpy.float32)
+                word_to_vector[word] = numpy.concatenate((vector, features))
     return word_to_vector
 
 def load_w2v_binary(filename, config=None):
