@@ -3,3 +3,5 @@ rep_eval_vector/
 *.pyc
 models/
 predictions/
+*.log
+*.pyc

@@ -518,6 +518,7 @@ def read_data_sets(data_dir, w2v_file=None, config=None):
     )
     datasets.append(DataSet(words, examples, features, labels))
   if oov_rate() > 0:
+    config.results_log[config.model_name_log]['{}-oov'.format(config.dataset_name_log)] = oov_rate()
     warn('Out-of-vocabulary rate: %.2f%% (%d/%d)' % (100.*oov_rate(), words_to_vectors.oov, words_to_vectors.total))
     warn('top OOV: %s' % ' '.join('%s (%d)' % (w, n) for n, w in most_frequent_oov()))
   reset_oov()

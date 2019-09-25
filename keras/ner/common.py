@@ -244,7 +244,7 @@ def per_type_summary(gold, pred, config):
   summaries.append('%.2f%% acc %.2f%% micf %.2f%% macf' % (
     100.*acc, 100.*microf, 100.*macrof
   ))
-
+  config.results_log[config.model_name_log][config.dataset_name_log] = acc
   return '\n'.join(summaries)
 
 def conll_summary(tokens, gold, pred, config):
@@ -265,6 +265,7 @@ def conll_summary(tokens, gold, pred, config):
   summaries = ['%.2f%% acc %.2f%% f (%.1fp %.1fr %dtp %dfp %dfn)' % (
     100.*acc, 100.*o.fscore, 100.*o.prec, 100.*o.rec,  o.tp, o.fp, o.fn
   )]
+  config.results_log[config.model_name_log][config.dataset_name_log] = o.fscore
   for name, r in sorted(by_type.items()):
     summaries.append('%*s %.2f%% f (%.1fp %.1fr %dtp %dfp %dfn)' % (
       nlen, name, 100.*r.fscore, 100.*r.prec, 100.*r.rec, r.tp, r.fp, r.fn
@@ -308,6 +309,7 @@ def setup_logging(name=None):
   if name is None:
     name = 'root'
   logger = logging.getLogger()
+  logger.handlers = []
   logger.setLevel(logging.DEBUG)
   # logging to stderr
   sh = logging.StreamHandler(sys.stderr)
