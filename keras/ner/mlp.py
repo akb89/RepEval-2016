@@ -28,8 +28,7 @@ class Defaults(object):
     hidden_sizes = [300]
     hidden_activation = 'hard_sigmoid' # 'relu'
     batch_size = 50
-    # epochs = 10
-    epochs = 1
+    epochs = 10
     loss = 'categorical_crossentropy' # 'mse'
     verbosity = 1    # 0=quiet, 1=progress bar, 2=one line per epoch
     iobes = False     # Map tags to IOBES on input
