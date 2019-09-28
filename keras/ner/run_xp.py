@@ -1,10 +1,10 @@
+from __future__ import print_function
+
 import sys
 import multiprocessing
 import functools
 from contextlib import closing
 from collections import defaultdict
-
-from __future__ import print_function
 
 from tqdm import tqdm
 
