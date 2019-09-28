@@ -10,11 +10,11 @@ from logging import warn
 
 import conlleval
 
-try:
-  import tensorflow as tf
-  WITH_TF = True
-except ImportError:
-  WITH_TF = False
+# try:
+#   import tensorflow as tf
+#   WITH_TF = True
+# except ImportError:
+#   WITH_TF = False
 
 BinaryClassificationCounts = namedtuple('BinaryClassificationCounts',
                                         'tp tn fp fn')
@@ -27,11 +27,11 @@ PREDDIR = 'predictions'
 # Label for "out" class in tagging scheme (IOB, IOBES, etc.)
 OUT_LABEL = 'O'
 
-def flatten(t):
-  """Reshape tensor [None, d1, d2, ...] to [None, d1 * d2 * ...]."""
-  if not WITH_TF:
-    raise NotImplementedError
-  return tf.reshape(t, [-1, np.prod(t.get_shape().as_list()[1:])])
+# def flatten(t):
+#   """Reshape tensor [None, d1, d2, ...] to [None, d1 * d2 * ...]."""
+#   if not WITH_TF:
+#     raise NotImplementedError
+#   return tf.reshape(t, [-1, np.prod(t.get_shape().as_list()[1:])])
 
 def tsize(t):
   """Return the number of elements in tensor, ignoring any None components."""
