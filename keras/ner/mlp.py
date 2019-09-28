@@ -39,7 +39,6 @@ class Defaults(object):
 
 def run_mlp(filepath, dataset, model_name_log, dataset_name_log):
     # config = settings.from_cli(['datadir', 'wordvecs'], Defaults)
-    print('calling now with', filepath, dataset)
     config = Defaults()
     config.datadir = dataset
     config.wordvecs = filepath
@@ -90,8 +89,8 @@ def run_mlp(filepath, dataset, model_name_log, dataset_name_log):
         pred = predictions(model, dataset.inputs)
         gold = np.argmax(dataset.labels, axis=1)
         summary = common.performance_summary(dataset.words, gold, pred, config)
-        for s in summary.split('\n'):
-            log(prefix + ' ' + s)
+        # for s in summary.split('\n'):
+        #     log(prefix + ' ' + s)
 
     # small_train = data.train.subsample(config.max_develtest_examples)
     # small_devel = data.devel.subsample(config.max_develtest_examples)
