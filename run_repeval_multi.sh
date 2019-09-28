@@ -11,4 +11,4 @@ runner() {
     echo /home/kabbach/venv2/bin/python $home/ner/run_xp_single.py ${DATASETS[@]} $1
 }
 export -f runner
-parallel --citation -j ${JOBS} runner ::: ${FILES} > ${OUT} 
+parallel -j ${JOBS} runner ::: ${FILES} > ${OUT} 
