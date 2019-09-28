@@ -99,7 +99,7 @@ def run_mlp(filepath, dataset, model_name_log, dataset_name_log):
     for epoch in range(1, config.epochs+1):
         model.fit(data.train.inputs, data.train.labels,
                   batch_size=config.batch_size, nb_epoch=1,
-                  verbose=config.verbosity, max_q_size=1)
+                  verbose=config.verbosity)
         # eval_report('Ep %d train' % epoch, model, small_train, config)
         # eval_report('Ep %d devel' % epoch, model, small_devel, config)
         data.train.shuffle()
