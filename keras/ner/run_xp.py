@@ -1,7 +1,7 @@
 import sys
 import multiprocessing
 import functools
- from contextlib import closing
+from contextlib import closing
 from collections import defaultdict
 
 import mlp
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     files = sys.argv[4:]
     results_log = defaultdict(defaultdict)
     process = functools.partial(process_file, datasets)
-    with closing(multiprocessing.Pool(1)):
+    with closing(multiprocessing.Pool(50)) as pool:
         for tmp_results_log in pool.imap_unordered(process, files):
             for model_name, results in tmp_results_log.items():
                 for result in results:
