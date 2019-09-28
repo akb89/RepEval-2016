@@ -4,6 +4,8 @@ import functools
 from contextlib import closing
 from collections import defaultdict
 
+from __future__ import print_function
+
 from tqdm import tqdm
 
 import mlp
@@ -34,10 +36,10 @@ if __name__ == '__main__':
     results_log = defaultdict(defaultdict)
     process = functools.partial(process_file, datasets)
     with open('results.txt', 'w') as output_stream:
-        print >> output_stream, 'MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV'
+        print('MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV', file=output_stream)
         with closing(multiprocessing.Pool(20)) as pool:
             for tmp_results_log in tqdm(pool.imap_unordered(process, files), total=len(files)):
                 for model_name, results in tmp_results_log.items():
-                    print >> output_stream, '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(
+                    print('{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(
                         model_name, results['conll00'], results['conll03'], results['ptb'],
-                        results['conll00-oov'], results['conll03-oov'], results['ptb-oov'])
+                        results['conll00-oov'], results['conll03-oov'], results['ptb-oov']), file=output_stream)
