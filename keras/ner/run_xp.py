@@ -1,9 +1,11 @@
 import sys
 import multiprocessing
 import functools
+ from contextlib import closing
 from collections import defaultdict
 
 import mlp
+
 
 def process_file(datasets, filepath):
     tmp_results_log = defaultdict(defaultdict)
@@ -23,17 +25,17 @@ def process_file(datasets, filepath):
                 tmp_results_log[model_name][result] = tmp_results_dict[model_name][result]
     return tmp_results_log
 
+
 if __name__ == '__main__':
     datasets = sys.argv[1:4]
     files = sys.argv[4:]
     results_log = defaultdict(defaultdict)
-    pool = multiprocessing.Pool(50)
     process = functools.partial(process_file, datasets)
-    for tmp_results_log in pool.imap_unordered(process, files):
-        for model_name, results in tmp_results_log.items():
-            for result in results:
-                results_log[model_name][result] = tmp_results_log[model_name][result]
-    pool.close()
+    with closing(multiprocessing.Pool(1)):
+        for tmp_results_log in pool.imap_unordered(process, files):
+            for model_name, results in tmp_results_log.items():
+                for result in results:
+                    results_log[model_name][result] = tmp_results_log[model_name][result]
     with open('results.txt', 'w') as output_stream:
         print >> output_stream, 'MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV'
         for model_name, results in sorted(results_log.items()):
