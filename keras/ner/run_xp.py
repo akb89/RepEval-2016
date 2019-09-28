@@ -36,6 +36,7 @@ if __name__ == '__main__':
     results_log = defaultdict(defaultdict)
     process = functools.partial(process_file, datasets)
     with open('results.txt', 'w') as output_stream:
+        print('This is a test', file=output_stream)
         print('MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV', file=output_stream)
         with closing(multiprocessing.Pool(20)) as pool:
             for tmp_results_log in tqdm(pool.imap_unordered(process, files), total=len(files)):
