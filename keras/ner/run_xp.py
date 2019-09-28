@@ -4,6 +4,8 @@ import functools
 from contextlib import closing
 from collections import defaultdict
 
+from tqdm import tqdm
+
 import mlp
 
 
@@ -31,15 +33,10 @@ if __name__ == '__main__':
     files = sys.argv[4:]
     results_log = defaultdict(defaultdict)
     process = functools.partial(process_file, datasets)
-    with closing(multiprocessing.Pool(50)) as pool:
-        for tmp_results_log in pool.imap_unordered(process, files):
-            for model_name, results in tmp_results_log.items():
-                for result in results:
-                    results_log[model_name][result] = tmp_results_log[model_name][result]
     with open('results.txt', 'w') as output_stream:
-        print >> output_stream, 'MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV'
-        for model_name, results in sorted(results_log.items()):
-            print(model_name)
-            print >> output_stream, '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(
-                model_name, results['conll00'], results['conll03'], results['ptb'],
-                results['conll00-oov'], results['conll03-oov'], results['ptb-oov'])
+        with closing(multiprocessing.Pool(50)) as pool:
+            for tmp_results_log in tqdm(pool.imap_unordered(process, files), total=len(files)):
+                for model_name, results in tmp_results_log.items():
+                    print >> output_stream, '{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(
+                        model_name, results['conll00'], results['conll03'], results['ptb'],
+                        results['conll00-oov'], results['conll03-oov'], results['ptb-oov'])

@@ -30,7 +30,7 @@ class Defaults(object):
     batch_size = 50
     epochs = 10
     loss = 'categorical_crossentropy' # 'mse'
-    verbosity = 1    # 0=quiet, 1=progress bar, 2=one line per epoch
+    verbosity = 0    # 0=quiet, 1=progress bar, 2=one line per epoch
     iobes = False     # Map tags to IOBES on input
     token_level_eval = False    # Token-level eval even if IOB-like tagging
     optimizer = 'adam' # 'sgd'
@@ -93,19 +93,19 @@ def run_mlp(filepath, dataset, model_name_log, dataset_name_log):
         for s in summary.split('\n'):
             log(prefix + ' ' + s)
 
-    small_train = data.train.subsample(config.max_develtest_examples)
-    small_devel = data.devel.subsample(config.max_develtest_examples)
+    # small_train = data.train.subsample(config.max_develtest_examples)
+    # small_devel = data.devel.subsample(config.max_develtest_examples)
 
     for epoch in range(1, config.epochs+1):
         model.fit(data.train.inputs, data.train.labels,
                   batch_size=config.batch_size, nb_epoch=1,
-                  verbose=config.verbosity)
-        eval_report('Ep %d train' % epoch, model, small_train, config)
-        eval_report('Ep %d devel' % epoch, model, small_devel, config)
+                  verbose=config.verbosity, max_q_size=1)
+        # eval_report('Ep %d train' % epoch, model, small_train, config)
+        # eval_report('Ep %d devel' % epoch, model, small_devel, config)
         data.train.shuffle()
 
     eval_report('FINAL train', model, data.train, config)
-    eval_report('FINAL devel', model, data.devel, config)
+    # eval_report('FINAL devel', model, data.devel, config)
 
     # pred = predictions(model, data.devel.inputs)
     # common.save_gold_and_prediction(data.devel, pred, config, output_name)
