@@ -30,7 +30,7 @@ class Defaults(object):
     batch_size = 50
     epochs = 10
     loss = 'categorical_crossentropy' # 'mse'
-    verbosity = 0    # 0=quiet, 1=progress bar, 2=one line per epoch
+    verbosity = 1    # 0=quiet, 1=progress bar, 2=one line per epoch
     iobes = False     # Map tags to IOBES on input
     token_level_eval = False    # Token-level eval even if IOB-like tagging
     optimizer = 'adam' # 'sgd'
@@ -47,8 +47,10 @@ def run_mlp(filepath, dataset, model_name_log, dataset_name_log):
     config.dataset_name_log = dataset_name_log
     optimizer = optimizers.get(config.optimizer)
     output_name = 'mlp--' + path.basename(config.datadir.rstrip('/'))
-    common.setup_logging(output_name)
-    settings.log_with(config, info)
+    #common.setup_logging(output_name)
+    #settings.log_with(config, info)
+    print('Processing model: {} on dataset: {}'.format(
+        model_name_log, dataset_name_log))
 
     # Data
     data = input_data.read_data_sets(config.datadir, config.wordvecs, config)
@@ -103,7 +105,7 @@ def run_mlp(filepath, dataset, model_name_log, dataset_name_log):
         # eval_report('Ep %d devel' % epoch, model, small_devel, config)
         data.train.shuffle()
 
-    eval_report('FINAL train', model, data.train, config)
+    # eval_report('FINAL train', model, data.train, config)
     # eval_report('FINAL devel', model, data.devel, config)
 
     # pred = predictions(model, data.devel.inputs)

@@ -46,7 +46,7 @@ def unknown_word(config=None, word_to_vector=None):
   except:
     pass
   w = _pick_word(word_to_vector, ['UNKNOWN'], DEFAULT_UNKNOWN_WORD)
-  warn('using %s as unknown word' % w)
+  #warn('using %s as unknown word' % w)
   if config is not None:
     config.unknown_word = w
   return w
@@ -57,7 +57,7 @@ def sentence_separator(config=None, word_to_vector=None):
   except:
     pass
   w = _pick_word(word_to_vector, ['PADDING','</s>'], DEFAULT_SENTENCE_SEPARATOR)
-  warn('using %s as sentence separator' % w)
+  #warn('using %s as sentence separator' % w)
   if config is not None:
     config.sentence_separator = w
   return w
@@ -68,7 +68,7 @@ def boundary_sentinel(config=None, word_to_vector=None):
   except:
     pass
   w = _pick_word(word_to_vector, ['<ZEROS>'], DEFAULT_SENTINEL)
-  warn('using %s as boundary sentinel' % w)
+  #warn('using %s as boundary sentinel' % w)
   if config is not None:
     config.sentinel = w
   return w
@@ -310,7 +310,7 @@ def _normalize_word(w, word_to_vector):
     u = _ontonotes_unescape.get(w)
   if u in word_to_vector:
     if not _normalize_word.warned:
-      warn('applying experimental PTB / OntoNotes token normalization')
+      #warn('applying experimental PTB / OntoNotes token normalization')
       _normalize_word.warned = True
     return u
   w = w.lower()
@@ -322,7 +322,7 @@ def _normalize_word(w, word_to_vector):
   u = _unknown_word_shape(w)
   if u in word_to_vector:
     if not _normalize_word.unk_warned:
-      warn('applying unknown token shape normalization')
+      #warn('applying unknown token shape normalization')
       _normalize_word.unk_warned = True
     return u
   return w
@@ -490,15 +490,15 @@ def _get_word_to_vector(w2v_file, config=None):
   # If the separator, sentinel or unknown word is not defined, add
   separator = sentence_separator(config, word_to_vector)
   if separator not in word_to_vector:
-    warn('no vector for sentence separator %s, adding zeros' % separator)
+    # warn('no vector for sentence separator %s, adding zeros' % separator)
     word_to_vector[separator] = numpy.zeros(wvsize, dtype=numpy.float32)
   sentinel = boundary_sentinel(config, word_to_vector)
   if sentinel not in word_to_vector:
-    warn('no vector for boundary sentinel %s, adding zeros' % sentinel)
+    # warn('no vector for boundary sentinel %s, adding zeros' % sentinel)
     word_to_vector[sentinel] = numpy.zeros(wvsize, dtype=numpy.float32)
   unknown = unknown_word(config, word_to_vector)
   if unknown not in word_to_vector:
-    warn('no vector for unknown word %s, adding zeros' % unknown)
+    # warn('no vector for unknown word %s, adding zeros' % unknown)
     word_to_vector[unknown] = numpy.zeros(wvsize, dtype=numpy.float32)
   if config is not None:
     config.word_to_vector = word_to_vector
@@ -519,8 +519,8 @@ def read_data_sets(data_dir, w2v_file=None, config=None):
     datasets.append(DataSet(words, examples, features, labels))
   if oov_rate() > 0:
     config.results_log[config.model_name_log]['{}-oov'.format(config.dataset_name_log)] = oov_rate()
-    warn('Out-of-vocabulary rate: %.2f%% (%d/%d)' % (100.*oov_rate(), words_to_vectors.oov, words_to_vectors.total))
-    warn('top OOV: %s' % ' '.join('%s (%d)' % (w, n) for n, w in most_frequent_oov()))
+    # warn('Out-of-vocabulary rate: %.2f%% (%d/%d)' % (100.*oov_rate(), words_to_vectors.oov, words_to_vectors.total))
+    # warn('top OOV: %s' % ' '.join('%s (%d)' % (w, n) for n, w in most_frequent_oov()))
   reset_oov()
   if config is not None:
     config.label_to_index = label_to_index
