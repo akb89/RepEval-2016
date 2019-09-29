@@ -2,7 +2,7 @@
 . /usr/bin/env_parallel.bash
 FILES=$(find $1 -type f -name '*.bin' -o -name '*.npy')
 OUT=$2
-JOBS=20
+JOBS=1
 
 runner() {
         home=$(pwd)/keras

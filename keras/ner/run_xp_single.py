@@ -33,10 +33,12 @@ def process_file(datasets, filepath):
 if __name__ == '__main__':
     datasets = sys.argv[1:4]
     filepath = sys.argv[4]
-    process = functools.partial(process_file, datasets)
+    #process = functools.partial(process_file, datasets)
     #print('MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV', file=output_stream)
-    tmp_results_log = process(filepath)
+    tmp_results_log = process_file(datasets, filepath)
     for model_name, results in tmp_results_log.items():
+        print('Completed model = {}'.format(model_name))
+        print('Results = {}'.format(results))
         print('{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(
                 model_name, results['conll00'], results['conll03'], results['ptb'],
                 results['conll00-oov'], results['conll03-oov'], results['ptb-oov']), file=sys.stdout)
