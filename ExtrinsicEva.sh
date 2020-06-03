@@ -16,7 +16,7 @@ DATASETS=($dataPath/CoNLL03 $dataPath/CoNLL00 $dataPath/PTB-pos)
 echo -e "MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV" > ${OUT}
 for file in $(echo $FILES | xargs -n1 | sort | xargs)
 do
-  /home/kabbach/venv2/bin/python $home/ner/run_xp_single.py ${DATASETS[@]} $file 2>> ${OUT}
+  /home/debian/venv/bin/python $home/ner/run_xp_single.py ${DATASETS[@]} $file 2>> ${OUT}
 	# for f in $dataPath/CoNLL03 $dataPath/CoNLL00 $dataPath/PTB-pos
 	# do
 	# /home/debian/venv/bin/python $home/ner/mlp.py $f $file
