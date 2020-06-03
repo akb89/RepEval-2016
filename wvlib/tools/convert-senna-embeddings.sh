@@ -60,6 +60,6 @@ perl -pe 's/\s*$/\t0\n/' $words > $dir/vocab.tsv
 perl -pe 's/ /\t/g' $embeddings > $dir/vectors.tsv
 
 # convert
-/home/kabbach/venv2/bin/python wvlib.py $dir -v npy -o $out
+/home/debian/venv/bin/python wvlib.py $dir -v npy -o $out
 
 rm -rf $dir

@@ -8,5 +8,5 @@ set -u
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CONLL_DIR="$SCRIPT_DIR/../original-data/"
 
-/home/kabbach/venv2/bin/python "$SCRIPT_DIR"/combine.py "$CONLL_DIR"/devel.txt $1 | \
+/home/debian/venv/bin/python "$SCRIPT_DIR"/combine.py "$CONLL_DIR"/devel.txt $1 | \
     "$SCRIPT_DIR/conlleval"

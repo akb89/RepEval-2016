@@ -34,7 +34,7 @@ for i in `ls webbase_all`; do
 done
 
 wget http://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
-/home/kabbach/venv2/bin/python ../wikiextractor/WikiExtractor.py -cb 250K -o extracted $1
+/home/debian/venv/bin/python ../wikiextractor/WikiExtractor.py -cb 250K -o extracted $1
 find extracted -name '*bz2' -exec bzip2 -dc {} \; > data4.txt
 #rm -rf extracted
 

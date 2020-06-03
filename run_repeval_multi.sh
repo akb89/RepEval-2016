@@ -8,7 +8,7 @@ runner() {
         home=$(pwd)/keras
         dataPath=$home'/ner/data/ner'
         DATASETS=($dataPath/CoNLL03 $dataPath/CoNLL00 $dataPath/PTB-pos)
-        /home/kabbach/venv2/bin/python $home/ner/run_xp_single.py ${DATASETS[@]} $1
+        /home/debian/venv/bin/python $home/ner/run_xp_single.py ${DATASETS[@]} $1
 }
 export -f runner
 echo -e "MODEL\tCONLL00\tCONLL03\tPTB\tCONLL00-OOV\tCONLL03-OOV\tPTB-OOV" > ${OUT}

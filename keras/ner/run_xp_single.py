@@ -26,12 +26,14 @@ def process_file(datasets, filepath):
 
 
 if __name__ == '__main__':
-    datasets = sys.argv[1:3]
-    filepath = sys.argv[3]
+    datasets = sys.argv[1:4]
+    filepath = sys.argv[4]
     tmp_results_log = process_file(datasets, filepath)
     for model_name, results in tmp_results_log.items():
         print('Completed model = {}'.format(model_name))
         print('Results = {}'.format(results))
-        print('{}\t{}\t{}\t{}\t{}'.format(
-                model_name, results['conll00'], results['conll03'],
-                results['conll00-oov'], results['conll03-oov']), file=sys.stderr)
+        print('{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(
+            model_name, results['conll00'], results['conll03'],
+            results['ptb'], results['conll00-oov'],
+            results['conll03-oov'], results['ptb-oov']),
+              file=sys.stderr)

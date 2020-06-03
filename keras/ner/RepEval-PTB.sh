@@ -4,7 +4,7 @@
 # Run this script with sbatch.
 
 
-SCRIPT="/home/kabbach/venv2/bin/python mlp.py --test"
+SCRIPT="/home/debian/venv/bin/python mlp.py --test"
 WORDVECS=wordvecs-RepEval-final/*.bin
 DATA=data/ner/PTB-pos
 
